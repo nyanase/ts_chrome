@@ -16,8 +16,12 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 });
 
+// chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
+//   chrome.tabs.executeScript(null,{file:"contentscript.js"});
+// });
+
 chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
-  if (changeInfo.status == 'complete') {
+  if (changeInfo.status == 'complete' && tabId == tab.id) {
     if (tab.url.match(/https:\/\/www.reddit.com\/r\/\w+\/comments\/[\w\/]+/)){
       console.log("matched")
       chrome.tabs.executeScript({
